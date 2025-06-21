@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import cover1 from '../../assets/imgs/cover1.png';
+import cover1 from '../../assets/imgs/bgm.jpg';
+import cover2 from '../../assets/imgs/logo.jpg';
 
 const LoginPage = () => {
 
@@ -28,27 +29,21 @@ const LoginPage = () => {
   };
 
   return (
+    
     <div className="min-h-screen flex">
-      {/* Left Side */}
+      
+
       <div
-        className="w-1/2 h-screen bg-cover bg-center relative"
+        className="w-full h-screen bg-cover bg-center relative flex "
         style={{ backgroundImage: `url(${cover1})` }}
       >
-        <div className="absolute top-3 right-3 text-6xl text-white font-bold select-none">P</div>
-        <div className="absolute inset-0 bg-opacity-40 flex items-center justify-center px-10">
-          <h2 className="text-white text-3xl font-serif text-center leading-snug">
-            Start &amp; Continue your music journey with us...
-          </h2>
-        </div>
-      </div>
+      <div className="flex absolute m-5 w-25 h-25"><img className="rounded-full border-black " src={cover2} alt="" /></div>
 
-      {/* Right Side */}
-      <div className="w-1/2 bg-white flex flex-col items-center justify-center relative">
-        <div className="absolute top-3 left-3 text-6xl font-bold text-black select-none">R.</div>
+      <div className="w-1/2  flex flex-col items-center justify-center relative ">
 
-        <div className="border border-black shadow-xl p-8 rounded-md w-full max-w-sm bg-white">
-          <h3 className="text-2xl font-bold text-center mb-2 text-black">Login</h3>
-          <p className="text-sm text-center mb-6 text-black">
+        <div className=" border border-white/50   p-8 rounded-3xl w-full max-w-sm bg-white/20 backdrop:blur-sm  shadow-lg ">
+          <h3 className="text-5xl  text-center mb-2 text-[#002291] font-[Caprasimo]">Login</h3>
+          <p className="text-md text-center mb-6 text-black font-semibold">
             Enter your Email and password below
           </p>
 
@@ -65,7 +60,7 @@ const LoginPage = () => {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 rounded-full border border-gray-300 text-black bg-white focus:outline-none focus:ring-2 focus:ring-black shadow-sm"
+                className="w-full px-4 py-2 rounded-full border border-black text-black  focus:outline-none focus:ring-1 focus:ring-black shadow-sm"
                 required
               />
             </div>
@@ -77,18 +72,20 @@ const LoginPage = () => {
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 rounded-full border border-gray-300 text-black bg-white focus:outline-none focus:ring-2 focus:ring-black shadow-sm"
+                className="w-full px-4 py-2 rounded-full border border-black text-black  focus:outline-none focus:ring-2 focus:ring-black shadow-sm"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition font-semibold"
+              className="w-full bg-[#002291] text-white py-2 rounded-md hover:bg-gray-800 transition text-2xl font-[Caprasimo] "
             >
               SUBMIT
             </button>
           </form>
         </div>
+      </div>
+
       </div>
     </div>
   );
