@@ -5,7 +5,7 @@ import axios from "axios";
 
 const TrackUploadPage = () => {
 
-  const URL = "http://localhost:3000";
+  const URL = "https://musicdashboard.onrender.com";
   
   const [formData, setFormData] = useState({
     title: "",
