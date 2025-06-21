@@ -4,7 +4,7 @@ import cover1 from '../../assets/imgs/cover1.png';
 
 const CreateUser = () => {
 
-  const URL = "http://localhost:3000";
+  const URL = "https://musicdashboard.onrender.com";
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
