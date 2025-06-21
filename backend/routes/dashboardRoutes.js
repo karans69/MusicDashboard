@@ -4,21 +4,9 @@ const database = require("../connect");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const multer = require("multer");
+const upload = multer({ dest: "uploads/" }); 
 
-// 🔐 Secret key
 const SECRET_KEY = process.env.SECRET_KEY || "Dprosen2025";
-
-// 📦 Multer configuration to save images with original filename + extension
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + "_" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
-const upload = multer({ storage });
 
 // 🔐 Token authentication middleware
 function authenticateToken(req, res, next) {
@@ -32,28 +20,28 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// 📥 Get all tracks uploaded by the logged-in user
+// 📦 Get all tracks uploaded by the logged-in user
 router.get("/api/tracks/my", authenticateToken, async (req, res) => {
   const db = database.getDb();
   const tracks = await db
     .collection("tracks")
-    .find({ userId: new ObjectId(req.userId) })
+    .find({ userId: new ObjectId(req.userId) })  // ✅ FIXED: added `new`
     .sort({ createdAt: -1 })
     .toArray();
   res.json(tracks);
 });
 
-// 🎨 Add a new artist (with image upload)
+// 🎨 Add a new artist
 router.post(
   "/api/userArtists",
   authenticateToken,
-  upload.single("image"), // "image" is the name in the formData
+  upload.single("image"), // "image" is the field name in FormData
   async (req, res) => {
     try {
       const db = database.getDb();
 
       const name = req.body.name;
-      const imagePath = `/uploads/${req.file.filename}`; // Public path
+      const imagePath = req.file?.path; // multer gives you req.file
 
       const artist = {
         userId: new ObjectId(req.userId),
@@ -71,12 +59,12 @@ router.post(
   }
 );
 
-// 🎨 Get all artists for logged-in user
+// 🎨 Get all user-specific artists
 router.get("/api/userArtists", authenticateToken, async (req, res) => {
   const db = database.getDb();
   const artists = await db
     .collection("userArtists")
-    .find({ userId: new ObjectId(req.userId) })
+    .find({ userId: new ObjectId(req.userId) })  // ✅ FIXED: added `new`
     .toArray();
   res.json(artists);
 });
