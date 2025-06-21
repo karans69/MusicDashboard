@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Home = () => {
 
-  const URL = "http://localhost:3000";
+  const URL = "https://musicdashboard.onrender.com";
 
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
