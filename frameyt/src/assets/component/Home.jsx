@@ -126,7 +126,7 @@ const Home = () => {
           <ul>
             {tracks.map(tr => (
               <li key={tr._id} className="flex items-center mb-4 bg-gray-200 rounded-xl p-2">
-                <img src={tr.artworkPath} className="w-20 h-20 rounded mr-4" />
+                <img src={tr.artworkPath}  className="w-20 h-20 rounded mr-4" />
                 <div>
                   <div className="font-semibold">{tr.title}</div>
                   <div className="text-xs">UPC: {tr.upc || "N/A"}</div>
