@@ -4,7 +4,8 @@ const database = require("../connect");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" }); 
+const { imageStorage } = require("../utils/storage"); // Cloudinary storage
+const imageUpload = multer({ storage: imageStorage });
 
 const SECRET_KEY = process.env.SECRET_KEY || "Dprosen2025";
 
@@ -22,31 +23,37 @@ function authenticateToken(req, res, next) {
 
 // 📦 Get all tracks uploaded by the logged-in user
 router.get("/api/tracks/my", authenticateToken, async (req, res) => {
-  const db = database.getDb();
-  const tracks = await db
-    .collection("tracks")
-    .find({ userId: new ObjectId(req.userId) })  // ✅ FIXED: added `new`
-    .sort({ createdAt: -1 })
-    .toArray();
-  res.json(tracks);
+  try {
+    const db = database.getDb();
+    const tracks = await db
+      .collection("tracks")
+      .find({ userId: new ObjectId(req.userId) })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    // No need to modify if Cloudinary URLs are already stored on upload
+    res.json(tracks);
+  } catch (err) {
+    console.error("Error fetching tracks:", err);
+    res.status(500).json({ error: "Failed to fetch tracks" });
+  }
 });
 
 // 🎨 Add a new artist
 router.post(
   "/api/userArtists",
   authenticateToken,
-  upload.single("image"), // "image" is the field name in FormData
+  imageUpload.single("image"), // "image" is the field name in FormData
   async (req, res) => {
     try {
       const db = database.getDb();
-
       const name = req.body.name;
-      const imagePath = req.file?.path; // multer gives you req.file
+      const imagePath = req.file?.path || req.file?.secure_url;
 
       const artist = {
         userId: new ObjectId(req.userId),
         name,
-        imagePath,
+        imagePath, // this will be a Cloudinary URL
         createdAt: new Date(),
       };
 
@@ -61,12 +68,19 @@ router.post(
 
 // 🎨 Get all user-specific artists
 router.get("/api/userArtists", authenticateToken, async (req, res) => {
-  const db = database.getDb();
-  const artists = await db
-    .collection("userArtists")
-    .find({ userId: new ObjectId(req.userId) })  // ✅ FIXED: added `new`
-    .toArray();
-  res.json(artists);
+  try {
+    const db = database.getDb();
+    const artists = await db
+      .collection("userArtists")
+      .find({ userId: new ObjectId(req.userId) })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    res.json(artists);
+  } catch (err) {
+    console.error("Error fetching artists:", err);
+    res.status(500).json({ error: "Failed to fetch artists" });
+  }
 });
 
 module.exports = router;

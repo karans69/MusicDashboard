@@ -3,6 +3,7 @@ const cors = require("cors");
 const users = require("./usersRoutes");
 const { connectToServer } = require("./connect");
 const trackRoutes = require("./routes/trackRoutes");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
