@@ -3,7 +3,7 @@ const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const database = require("../connect");
-const { cloudinary } = require("../utils/cloudinary");
+const cloudinary = require("../utils/cloudinary");
 const streamifier = require("streamifier");
 
 const SECRET_KEY = "Dprosen2025";
