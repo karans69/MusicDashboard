@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.17.0",
     "multer": "^2.0.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "node": "^24.2.0",
     "streamifier": "^0.1.1"
   }
