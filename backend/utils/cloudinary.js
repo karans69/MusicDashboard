@@ -1,14 +1,11 @@
-const cloudinaryModule = require("cloudinary").v2;
+// utils/cloudinary.js
+const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-cloudinaryModule.config({
-  cloud_name: "dvhb1be1m",
-  api_key: "778273998351137",
-  api_secret: "Oac1emJzbIENC0ZJaU8Qvcssg6w",
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
-module.exports = {
-  cloudinary: cloudinaryModule,
-  CloudinaryStorage,
-};
+module.exports = cloudinary; // ✅ Just export v2 directly
