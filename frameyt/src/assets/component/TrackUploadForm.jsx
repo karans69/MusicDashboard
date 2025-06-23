@@ -484,13 +484,7 @@ const TrackUploadPage = () => {
             onClick={() => artworkRef.current.click()}
             className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer"
           >
-            {artwork && (
-              <img
-                src={URL.createObjectURL(artwork)}
-                alt="artwork preview"
-                className="mt-2 w-32 h-32 object-cover rounded"
-              />
-            )}
+          
             <input
               type="file"
               accept="image/*"
@@ -568,7 +562,7 @@ const TrackUploadPage = () => {
 
           <button
             type="submit"
-            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition"
+            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition active:scale-95"
           >
             Finish Upload
           </button>
