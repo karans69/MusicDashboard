@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import logo from "../imgs/logo2.png";
+// import logo from "../imgs/logo2.PNG";
 
 import {
   FaHome,
@@ -28,9 +28,9 @@ const navItems = [
 
 const Sidebar = ({ active }) => {
   return (
-    <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20">
+    <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20 fixed h-screen">
       <div className="mb-6">
-        {/* <img src={logo} className="h-30 w-30 mx-auto"></img> */}
+        <img src={logo} className="h-30 w-30 mx-auto"></img>
         <p className="text-xs text-gray-400 mt-1">Sell your music worldwide.</p>
       </div>
       <Link to="/trackUp">
