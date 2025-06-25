@@ -67,7 +67,7 @@ const Home = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar active="Home" />
-      <main className="flex-1 p-6 space-y-6 ms-60">
+      <main className="flex-1 p-6 space-y-6 ms-60 max-w-4/6">
         <div className="bg-white rounded-2xl shadow p-6 flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold">
@@ -137,7 +137,7 @@ const Home = () => {
         </div>
       </main>
     {/* Aside Notices */}
-      <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20 hidden lg:block fixed h-screen right-0 top-0">
+      <aside className="w-64 max-w-1/6 bg-white shadow-2xl rounded-2xl p-6 z-20 hidden lg:block fixed h-screen right-0 top-0">
         <div className="mb-6 ">
           <div className="flex justify-end p-5">
             <FaUser className="text-3xl text-gray-700 m-1" />
