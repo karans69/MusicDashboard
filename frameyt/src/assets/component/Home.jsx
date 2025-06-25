@@ -138,7 +138,7 @@ const Home = () => {
       </main>
     {/* Aside Notices */}
       <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20 hidden lg:block">
-        <div className="mb-6">
+        <div className="fixed">
           <div className="flex justify-end p-5">
             <FaUser className="text-3xl text-gray-700 m-1" />
             <div className="border-solid border-1 flex px-2 bg-black rounded-2xl ">
