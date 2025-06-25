@@ -67,7 +67,7 @@ const Home = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar active="Home" />
-      <main className="flex-1 p-6 space-y-6">
+      <main className="flex-1 p-6 space-y-6 ms-60">
         <div className="bg-white rounded-2xl shadow p-6 flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold">
