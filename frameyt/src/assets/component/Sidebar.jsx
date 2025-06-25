@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../imgs/logo2.png"
 
 import {
   FaHome,
@@ -29,8 +30,7 @@ const Sidebar = ({ active }) => {
   return (
     <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-black">PR.</h1>
-        <p className="text-sm text-gray-500">PAS Records</p>
+        <img src={logo} className="h-30 w-30 mx-auto"></img>
         <p className="text-xs text-gray-400 mt-1">Sell your music worldwide.</p>
       </div>
       <Link to="/trackUp">
