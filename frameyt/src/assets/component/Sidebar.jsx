@@ -31,7 +31,7 @@ const Sidebar = ({ active }) => {
     <aside className="w-64 bg-white shadow-2xl rounded-2xl p-6 z-20 fixed h-screen">
       <div className="mb-6">
         <img src={logo} className="h-30 w-30 mx-auto"></img>
-        <p className="text-xs text-gray-400 mt-1">Sell your music worldwide.</p>
+        <p className="text-s text-gray-600 mt-1">Sell your music worldwide.</p>
       </div>
       <Link to="/trackUp">
         <button className="w-full bg-black text-white py-2 rounded-xl text-sm font-medium mb-6 hover:bg-gray-800 transition">
