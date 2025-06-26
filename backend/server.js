@@ -3,6 +3,9 @@ const cors = require("cors");
 const users = require("./usersRoutes");
 const { connectToServer } = require("./connect");
 const trackRoutes = require("./routes/trackRoutes");
+const adminTrackRoutes = require("./routes/adminTrackRoutes");
+
+
 require("dotenv").config();
 
 const app = express();
@@ -14,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(users);
+app.use(adminTrackRoutes);
 
 // Static Files (for artwork/audio previews)
 app.use("/uploads", express.static("uploads"));
