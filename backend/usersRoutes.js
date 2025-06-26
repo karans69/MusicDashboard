@@ -106,4 +106,38 @@ usersRoutes.post("/login", async (req, res) => {
   }
 });
 
+
+
+usersRoutes.post("/admin/login", async (req, res) => {
+  const db = database.getDb();
+  const { email, password } = req.body;
+
+  try {
+    const user = await db.collection("admin").findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1d" });
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        email: user.email,
+        name: user.name,
+      },
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = usersRoutes
