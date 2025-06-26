@@ -14,11 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
-app.get("/dashboard*",       sendIndex);   // optional: specific paths
-app.get("/TrackList*",       sendIndex);
-app.get("/createUser*",      sendIndex);
-app.get("/admin/*",          sendIndex);   // or just one catch-all:
-app.get("*",                 sendIndex); 
+app.get(["/dashboard*", "/TrackList*", "/createUser*", "/admin/*", "*"], (req, res) => {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+});
 
 function sendIndex(req, res) {
   res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
