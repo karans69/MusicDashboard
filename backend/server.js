@@ -4,7 +4,7 @@ const users = require("./usersRoutes");
 const { connectToServer } = require("./connect");
 const trackRoutes = require("./routes/trackRoutes");
 const adminTrackRoutes = require("./routes/adminTrackRoutes");
-const path = require("path");
+
 
 
 require("dotenv").config();
@@ -12,15 +12,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
-app.get(["/dashboard*", "/TrackList*", "/createUser*", "/admin/*", "*"], (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
-
-function sendIndex(req, res) {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-}
 
 // Middleware
 app.use(cors());
