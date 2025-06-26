@@ -1,40 +1,44 @@
-const express = require("express")
-const database = require("./connect")
-const ObjectId = require("mongodb").ObjectId
-const bcrypt = require("bcrypt")
+const express = require("express");
+const database = require("./connect");
+const ObjectId = require("mongodb").ObjectId;
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = "Dprosen2025";
 
-let usersRoutes = express.Router()
-const SALT_ROUNDS = 10
+let usersRoutes = express.Router();
+const SALT_ROUNDS = 10;
 
 // Retrieve All
 usersRoutes.route("/users").get(async (req, res) => {
-    let db = database.getDb()
-    let data = await db.collection("users").find({}).toArray()
-    if (data.length > 0) {
-        res.json(data)
-    } else {
-        throw new Error("Data not found :(")
-    }
-})
+  let db = database.getDb();
+  let data = await db.collection("users").find({}).toArray();
+  if (data.length > 0) {
+    res.json(data);
+  } else {
+    throw new Error("Data not found :(");
+  }
+});
 
 // Retrieve One
 usersRoutes.route("/users/:id").get(async (req, res) => {
-    let db = database.getDb()
-    let data = await db.collection("users").findOne({ _id: new ObjectId(req.params.id) })
-    if (data && Object.keys(data).length > 0) {
-        res.json(data)
-    } else {
-        throw new Error("Data not found :(")
-    }
-})
+  let db = database.getDb();
+  let data = await db
+    .collection("users")
+    .findOne({ _id: new ObjectId(req.params.id) });
+  if (data && Object.keys(data).length > 0) {
+    res.json(data);
+  } else {
+    throw new Error("Data not found :(");
+  }
+});
 
 // Create
 usersRoutes.route("/users").post(async (req, res) => {
   let db = database.getDb();
 
-  const takenEmail = await db.collection("users").findOne({ email: req.body.email });
+  const takenEmail = await db
+    .collection("users")
+    .findOne({ email: req.body.email });
 
   if (takenEmail) {
     res.json({ message: "Already have an user with this email" });
@@ -54,24 +58,27 @@ usersRoutes.route("/users").post(async (req, res) => {
 
 // Update
 usersRoutes.route("/users/:id").put(async (req, res) => {
-    let db = database.getDb()
-    let mongoObject = {
-        $set: {
-            email: req.body.email,
-            name: req.body.name
-        }
-    }
-    let data = await db.collection("users").updateOne({ _id: new ObjectId(req.params.id) }, mongoObject)
-    res.json(data)
-})
+  let db = database.getDb();
+  let mongoObject = {
+    $set: {
+      email: req.body.email,
+      name: req.body.name,
+    },
+  };
+  let data = await db
+    .collection("users")
+    .updateOne({ _id: new ObjectId(req.params.id) }, mongoObject);
+  res.json(data);
+});
 
 // Delete
 usersRoutes.route("/users/:id").delete(async (req, res) => {
-    let db = database.getDb()
-    let data = await db.collection("users").deleteOne({ _id: new ObjectId(req.params.id) })
-    res.json(data)
-})
-
+  let db = database.getDb();
+  let data = await db
+    .collection("users")
+    .deleteOne({ _id: new ObjectId(req.params.id) });
+  res.json(data);
+});
 
 // ✅ LOGIN Route
 usersRoutes.post("/login", async (req, res) => {
@@ -106,8 +113,6 @@ usersRoutes.post("/login", async (req, res) => {
   }
 });
 
-
-
 usersRoutes.post("/admin/login", async (req, res) => {
   const db = database.getDb();
   const { email, password } = req.body;
@@ -124,7 +129,11 @@ usersRoutes.post("/admin/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1d" });
+    const token = jwt.sign(
+      { id: user._id, isAdmin: true }, // ✅ now includes isAdmin
+      SECRET_KEY,
+      { expiresIn: "1d" }
+    );
 
     res.json({
       message: "Login successful",
@@ -140,4 +149,4 @@ usersRoutes.post("/admin/login", async (req, res) => {
   }
 });
 
-module.exports = usersRoutes
+module.exports = usersRoutes;
