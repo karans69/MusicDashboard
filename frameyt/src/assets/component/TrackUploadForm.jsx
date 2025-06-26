@@ -150,7 +150,7 @@ const TrackUploadPage = () => {
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar active="Releases" />
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 ms-50">
         <form
           onSubmit={handleSubmit}
           className="bg-white rounded-2xl shadow p-6 max-w-4xl mx-auto space-y-6"
