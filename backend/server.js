@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 app.get('/dashboard(.*)',   sendIndex);
 app.get('/TrackList(.*)',   sendIndex);
 app.get('/createUser(.*)',  sendIndex);
-app.get('/admin/*',         sendIndex);   // already valid
+// app.get('/admin/*',         sendIndex);   // already valid
 // no bare "*"" in the array!
 
 
