@@ -30,22 +30,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
-// Frontend routes (defined individually if needed)
-app.get("/dashboard*", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
 
-app.get("/TrackList*", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
-
-app.get("/createUser*", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
-
-app.get("/admin/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
 
 
 
