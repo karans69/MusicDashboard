@@ -11,29 +11,48 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use("/api/users", users);          // API routes must come first
-app.use("/api/tracks", trackRoutes);
+app.use(users);
+app.use("/api/users", users);         // user routes should be prefixed
+app.use("/api/tracks", trackRoutes);  // ✅ all track routes under /api/tracks
 app.use("/api/admin", adminTrackRoutes);
 app.use("/", dashboardRoutes);
 
-// Static files (e.g., artwork/audio)
+// Static Files (for artwork/audio previews)
 app.use("/uploads", express.static("uploads"));
 
-// Serve Admin Panel (Vite build)
+
+
 app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
-// Catch-all for frontend routes — should be last!
-app.get(["/dashboard*", "/TrackList*", "/createUser*", "/admin/*", "*"], (req, res) => {
+// Frontend routes (defined individually if needed)
+app.get("/dashboard*", (req, res) => {
   res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
 });
 
-// Connect DB and Start Server
+app.get("/TrackList*", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+});
+
+app.get("/createUser*", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+});
+
+app.get("/admin/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+});
+
+// ✅ FINAL catch-all (ONLY THIS LINE)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+});
+
+// DB Connect & Server Start
 connectToServer()
   .then(() => {
     app.listen(PORT, () => {
