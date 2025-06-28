@@ -28,6 +28,10 @@ app.use("/uploads", express.static("uploads"));
 
 
 
+function sendIndex(req, res) {
+  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
+}
+
 app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
 app.get('/dashboard(.*)',   sendIndex);
