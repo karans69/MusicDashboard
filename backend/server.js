@@ -34,11 +34,11 @@ function sendIndex(req, res) {
 
 app.use(express.static(path.join(__dirname, "admin-frontend/dist")));
 
-app.get('/dashboard(.*)',   sendIndex);
-app.get('/TrackList(.*)',   sendIndex);
-app.get('/createUser(.*)',  sendIndex);
-// app.get('/admin/*',         sendIndex);   // already valid
-// no bare "*"" in the array!
+app.get(['/dashboard', '/dashboard/*'], sendIndex);
+app.get(['/TrackList', '/TrackList/*'], sendIndex);
+app.get(['/createUser', '/createUser/*'], sendIndex);
+app.get(['/admin', '/admin/*'], sendIndex);
+app.get('*', sendIndex); // fallback
 
 
 
