@@ -47,10 +47,7 @@ app.get("/admin/*", (req, res) => {
   res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
 });
 
-// ✅ FINAL catch-all (ONLY THIS LINE)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin-frontend/dist", "index.html"));
-});
+
 
 // DB Connect & Server Start
 connectToServer()
