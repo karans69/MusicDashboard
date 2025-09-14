@@ -27,7 +27,6 @@ const submiter= (e)=>{
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='trackUp' element={<TrackUploadform/>} />
-        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
         <Route path="/support" element={<Supports />} />
         <Route path="/AdminSupport" element ={<AdminSupportPanel/>}/>
         <Route path="/Createuser" element ={<CreateUser/>}/>
