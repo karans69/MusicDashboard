@@ -20,7 +20,6 @@ const submiter= (e)=>{
   e.preventDefault()
   setName('')
 }
-
   return (
     
     <Router>
